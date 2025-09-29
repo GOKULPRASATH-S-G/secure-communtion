@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuantumGuard - Secure P2P Chat</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style> /* Basic scrollbar styling */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1f2937; }
+        ::-webkit-scrollbar-thumb { background-color: #8b5cf6; border-radius: 10px; border: 2px solid #1f2937; }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200 min-h-screen flex flex-col font-sans">
+
+    <header class="bg-gray-800 shadow-lg p-4 text-center border-b border-gray-700">
+        <h1 class="text-4xl font-bold text-purple-400"><i class="fas fa-user-secret mr-3"></i>Secure Communication using ECC</h1>
+    </header>
+
+    <main class="flex-grow container mx-auto p-4 flex flex-col">
+
+        <!-- Initial Screen: Load or Create New Session -->
+        <section id="initial-section" class="w-full max-w-2xl mx-auto space-y-6">
+            <!-- Load Saved Session Section -->
+            <div class="bg-gray-800 p-6 rounded-lg shadow-xl border border-gray-700">
+                <h2 class="text-2xl font-semibold mb-4 text-center">Load a Saved Session (View-Only)</h2>
+                <div id="saved-sessions-list" class="space-y-2">
+                    <p class="text-center text-gray-500">No saved sessions found.</p>
+                </div>
+            </div>
+
+            <!-- Create New Session Section -->
+            <div id="setup-section" class="bg-gray-800 p-6 rounded-lg shadow-xl border border-gray-700">
+                <h2 class="text-2xl font-semibold mb-4 text-center">Or Create a New Secure Session</h2>
+                <button id="generate-keys-btn" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded-lg">Generate New Keys</button>
+                <div class="grid md:grid-cols-2 gap-4 my-4">
+                    <div>
+                        <label class="block mb-1 text-red-400">My Private Key (Keep Secret)</label>
+                        <div class="relative">
+                            <textarea id="my-private-key" class="w-full h-24 bg-gray-900 border border-gray-600 rounded-lg p-2 font-mono text-xs" readonly></textarea>
+                            <button id="copy-private-key-btn" class="absolute top-1 right-1 bg-gray-700 hover:bg-gray-600 p-1 rounded-md text-xs" title="Copy Private Key"><i class="fas fa-copy"></i> Copy</button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block mb-1 text-green-400">My Public Key (Share this)</label>
+                        <div class="relative">
+                            <textarea id="my-public-key" class="w-full h-24 bg-gray-900 border border-gray-600 rounded-lg p-2 font-mono text-xs" readonly></textarea>
+                            <button id="copy-public-key-btn" class="absolute top-1 right-1 bg-gray-700 hover:bg-gray-600 p-1 rounded-md text-xs" title="Copy Public Key"><i class="fas fa-copy"></i> Copy</button>
+                        </div>
+                    </div>
+                </div>
+                <label class="block mb-1 font-semibold">Enter Your Partner's Public Key</label>
+                <textarea id="partner-public-key" class="w-full h-24 bg-gray-700 border border-gray-600 rounded-lg p-2 font-mono text-xs" placeholder="Paste your partner's public key..."></textarea>
+                <button id="start-chat-btn" class="w-full mt-4 bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg">Start Live Chat</button>
+            </div>
+        </section>
+
+        <!-- Chat Screen (Initially Hidden) -->
+        <section id="chat-section" class="hidden w-full max-w-2xl mx-auto flex flex-col bg-gray-800 rounded-lg border border-gray-700 mt-4">
+            <div class="p-3 border-b border-gray-700 flex justify-between items-center">
+                <h3 id="chat-session-title" class="text-lg font-bold text-gray-300">Secure Session Active</h3>
+                <button id="end-session-btn" class="bg-red-600 hover:bg-red-500 text-white font-bold py-1 px-3 rounded-lg text-sm">End Session</button>
+            </div>
+            <div id="chat-messages" class="flex-grow p-4 overflow-y-auto h-96"></div>
+            <div id="message-input-area" class="p-4 border-t border-gray-700">
+                <div id="ai-analysis-result" class="mb-2 text-sm text-yellow-400 text-center h-4"></div>
+                <div class="flex items-center gap-4">
+                    <input type="text" id="message-input" class="flex-grow bg-gray-700 border border-gray-600 rounded-lg p-2" placeholder="Type an encrypted message...">
+                    <button id="send-button" class="bg-purple-600 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded-lg"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
