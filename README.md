@@ -1,7 +1,5 @@
 # QuantumGuard: An End-to-End Encrypted Chat Application
 
-[
-![QuantumGuard Demo](https://secure-communication-using-ai-based.onrender.com/)]
 
 QuantumGuard is a secure, real-time, two-person chat application built on .NET 8 and modern web technologies. This project demonstrates the practical application of **Elliptic Curve Cryptography (ECC)** to establish a secure, end-to-end encrypted communication channel, where the central server acts only as a blind relay for encrypted data and has zero knowledge of the message content.
 
